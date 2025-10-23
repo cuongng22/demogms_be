@@ -17,6 +17,9 @@ public class UserCustom implements UserDetails {
     private String password;
 
     private List<? extends GrantedAuthority> roles;
+
+    public UserCustom() {
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
