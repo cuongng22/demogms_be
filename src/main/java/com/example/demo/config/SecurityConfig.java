@@ -43,7 +43,9 @@ public class SecurityConfig {
                 // Cấu hình các quy tắc ủy quyền (authorization)
                 .authorizeHttpRequests(auth -> auth
                         // Cho phép truy cập công khai đến endpoint /authenticate
-                        .requestMatchers("/authenticate").permitAll()
+                        .requestMatchers("/authenticate",
+                                "/register"
+                                ).permitAll()
                         // Tất cả các request khác đều yêu cầu xác thực
                         .anyRequest().authenticated()
                 )

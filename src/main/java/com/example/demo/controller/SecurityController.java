@@ -2,17 +2,23 @@ package com.example.demo.controller;
 
 import com.example.demo.request.AuthRequest;
 import com.example.demo.response.AuthResponse;
+import com.example.demo.response.Resp;
 import com.example.demo.service.MyUserDetailsService;
+import com.example.demo.table.Users;
 import com.example.demo.utils.JwtUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Slf4j
+@CrossOrigin("*")
 public class SecurityController {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
@@ -47,8 +53,12 @@ public class SecurityController {
         return ResponseEntity.ok(new AuthResponse(jwt));
     }
 
-    @GetMapping(value = "/hello", produces = "application/json")
-    public ResponseEntity<String> hello() {
-        return ResponseEntity.ok("Hello World" );
+    @PostMapping(value = "/register", produces = "application/json")
+    public ResponseEntity<Resp> register(@RequestBody AuthRequest req) throws Exception {
+        Resp resp = new Resp();
+            resp.setData(myUserDetailsService.register(req));
+            resp.setStatusCode(0);
+            resp.setMsg("Thành công");
+        return ResponseEntity.ok(resp);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.demo.request;
+package com.example.demo.utils;
 
 import com.example.demo.table.Users;
 import org.springframework.security.core.GrantedAuthority;
@@ -56,7 +56,7 @@ public class UserCustom implements UserDetails {
     public static UserCustom build(Users user) {
         List<GrantedAuthority> authorities = new ArrayList<>(); //tạo một list quyền cho user principal
         return new UserCustom(
-                user.getId(),
+                 user.getId(),
                 user.getUsername(),
                 user.getPassword(),
                 authorities
